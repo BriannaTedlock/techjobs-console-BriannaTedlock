@@ -145,7 +145,6 @@ public class TechJobs {
             // print a blank line
             System.out.println();
         }
-
-        System.out.println("printJobs is not implemented yet");
+        
     }
 }
