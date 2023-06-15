@@ -1,4 +1,5 @@
 Welcome to LaunchCode's TechJobs App!
+test == teST // TRUE IN CASE-INSENSITIVE SEARCH
 
 View jobs by (type 'x' to quit):
 0 - Search
