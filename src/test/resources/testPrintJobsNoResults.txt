@@ -1,5 +1,4 @@
 Welcome to LaunchCode's TechJobs App!
-test == teST // TRUE IN CASE-INSENSITIVE SEARCH
 
 View jobs by (type 'x' to quit):
 0 - Search
@@ -14,6 +13,7 @@ Search by:
 
 Search term:
 No Results
+
 View jobs by (type 'x' to quit):
 0 - Search
 1 - List

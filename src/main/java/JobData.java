@@ -22,7 +22,7 @@ public class JobData {
      * without duplicates, for a given column.
      *
      * @param field The column to retrieve values from
-     * @return List of all the values of the given field
+     * @return List of all of the values of the given field
      */
     public static ArrayList<String> findAll(String field) {
 
@@ -61,8 +61,8 @@ public class JobData {
      * For example, searching for employer "Enterprise" will include results
      * with "Enterprise Holdings, Inc".
      *
-     * @param column   Column that should be searched.
-     * @param value Value of teh field to search for
+     * @param column Column that should be searched.
+     * @param value  Value of teh field to search for
      * @return List of all jobs matching the criteria
      */
     public static ArrayList<HashMap<String, String>> findByColumnAndValue(String column, String value) {
@@ -76,7 +76,7 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue.toUpperCase().contains(value.toUpperCase())) { // this is what I changed
                 jobs.add(row);
             }
         }
@@ -88,23 +88,21 @@ public class JobData {
      * Search all columns for the given term
      *
      * @param value The search term to look for
-     * @return      List of all jobs with at least one field containing the value
+     * @return List of all jobs with at least one field containing the value
      */
     public static ArrayList<HashMap<String, String>> findByValue(String value) {
-
         // load data, if not already loaded
         loadData();
-        ArrayList<HashMap<String, String>> allColumns = new ArrayList<>();
-        for (HashMap<String, String> jobs : allJobs) {
-            for(Map.Entry<String, String> oneJob : jobs.entrySet()){
-                if (oneJob.getValue().toLowerCase().contains(value.toLowerCase()) && !allColumns.contains(jobs)){
-                    allColumns.add(jobs);
+
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+        for (HashMap<String, String> job : JobData.findAll()) {
+            for (String key : job.keySet()) {
+                if (job.get(key).toUpperCase().contains(value.toUpperCase())) {
+                    jobs.add(job);
                 }
             }
         }
-
-        // TODO - implement this method
-        return allColumns;
+        return jobs;
     }
 
     /**
@@ -123,7 +121,7 @@ public class JobData {
             Reader in = new FileReader(DATA_FILE);
             CSVParser parser = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in);
             List<CSVRecord> records = parser.getRecords();
-            int numberOfColumns = records.get(0).size();
+            Integer numberOfColumns = records.get(0).size();
             String[] headers = parser.getHeaderMap().keySet().toArray(new String[numberOfColumns]);
 
             allJobs = new ArrayList<>();
